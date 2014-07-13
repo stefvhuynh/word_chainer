@@ -8,6 +8,33 @@ class WordChainer
     @dictionary = File.readlines(dictionary_file_name).map(&:chomp).to_set
   end
   
+  def run(source, target)
+    @current_words = [source]
+    # The key is the modified word and the value is the previous word.
+    @all_seen_words = { source => nil }
+    
+    until @current_words.empty?
+      @current_words = explore_current_words
+      print @current_words
+    end
+  end
+  
+  def explore_current_words
+    new_current_words = []
+    
+    @current_words.each do |cur_word|
+      adjacent_words(cur_word).each do |adj_word|
+        next if @all_seen_words.include?(adj_word)
+        @all_seen_words[adj_word] = cur_word
+        new_current_words << adj_word
+      end
+    end
+    
+    new_current_words
+  end
+  
+  private
+  
   def adjacent_words(word)
     # Generate every variation of the word and check to see if it's 
     # in the dictionary. This is better than filtering the dictionary,
@@ -30,6 +57,6 @@ end
 
 
 w = WordChainer.new("dictionary.txt")
-p w.adjacent_words("puppy")
+w.run("puppy", "kitty")
 
 
