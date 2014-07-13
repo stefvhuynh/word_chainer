@@ -15,8 +15,9 @@ class WordChainer
     
     until @current_words.empty?
       @current_words = explore_current_words
-      print @current_words
     end
+    
+    puts build_path(target)
   end
   
   def explore_current_words
@@ -31,6 +32,12 @@ class WordChainer
     end
     
     new_current_words
+  end
+  
+  def build_path(target)
+    # Recursively get from the target to the source
+    return [] if target.nil?
+    build_path(@all_seen_words[target]) + [target]
   end
   
   private
@@ -55,8 +62,9 @@ class WordChainer
   
 end
 
-
-w = WordChainer.new("dictionary.txt")
-w.run("puppy", "kitty")
+if __FILE__ = $PROGRAM_NAME
+  w = WordChainer.new("dictionary.txt")
+  w.run("puppy", "kitty")
+end
 
 
