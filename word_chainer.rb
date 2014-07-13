@@ -62,9 +62,15 @@ class WordChainer
   
 end
 
-if __FILE__ = $PROGRAM_NAME
+if __FILE__ == $PROGRAM_NAME
   w = WordChainer.new("dictionary.txt")
-  w.run("puppy", "kitty")
+  if ARGV.empty?
+    w.run("puppy", "kitty")
+  elsif ARGV.length == 1
+    raise "Need two arguments"
+  else
+    w.run(ARGV.shift, ARGV.shift)
+  end
 end
 
 
