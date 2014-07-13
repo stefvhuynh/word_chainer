@@ -27,6 +27,6 @@ kitty
 
 The program takes command line arguments, as can be seen above. If given no arguments, it defaults to `puppy` and `kitty`.
 
-This program was written while I was attending [App Academy](http://app_academy.io), where I received a lot of guidance on this particular program.
+This program was written while I was attending [App Academy](http://www.app_academy.io), where I received a lot of guidance on this particular program.
 
 
