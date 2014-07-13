@@ -43,10 +43,19 @@ class WordChainer
   private
   
   def adjacent_words(word)
+    adjacent_words = possible_words(word).select do |word| 
+      @dictionary.include?(word) 
+    end
+    adjacent_words.delete(word)
+    adjacent_words
+  end
+  
+  def possible_words(word)
     # Generate every variation of the word and check to see if it's 
     # in the dictionary. This is better than filtering the dictionary,
     # itself.
     possible_words = []
+    
     word.each_char.with_index do |char, index|
       ("a".."z").each do |letter|
         possible_word = word.dup
@@ -55,9 +64,7 @@ class WordChainer
       end
     end
     
-    adjacent_words = possible_words.select { |word| @dictionary.include?(word) }
-    adjacent_words.delete(word)
-    adjacent_words
+    possible_words
   end
   
 end
